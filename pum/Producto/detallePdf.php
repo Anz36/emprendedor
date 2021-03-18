@@ -270,8 +270,6 @@ $dato = obtenerModeloProductoSKU($idSku);
 			 		<input type="text" id="modelo" name="modelo" readonly class="form-control" value="<?php obtenerModelo($id_producto); ?>">
 			 		<label for="color">Color</label>
 			 		<input type="text" id="color" name="color" readonly class="form-control" value="<?php obtenerColor($id_producto); ?>">
-			 		<label for="talla">Tecnica</label>
-			 		<input type="text" id="talla" name="talla" readonly class="form-control" value="<?php obtenerTecnica($id_producto); ?>">
 			 		<label for="precio">Precio de Venta</label>
 			 		<input type="text" id="precio" name="precio" readonly class="form-control" value="<?php obtenerTotalProducto($id_producto); ?>">
 			 		<label for="direccion" class="col-6">Imagen Codigo <?php 
@@ -300,7 +298,6 @@ $dato = obtenerModeloProductoSKU($idSku);
 			 	<br>
 			 	<div class="row align-items-center">
 			 		<div class="form-group col-6">
-					 
 			 		<label for="Nombre">Nombre</label>
 			 		<input type="text" id="Nombre" name="Nombre" readonly class="form-control" value="<?php obtenerProductoNombre($id_producto); ?>">
 			 		<label for="codCliente">Codigo de Orden</label>
@@ -355,12 +352,8 @@ $dato = obtenerModeloProductoSKU($idSku);
 			 		<input type="text" id="codCliente" name="codCliente" readonly class="form-control" value="<?php obtenerProductoVariacion($id_producto); ?>">
 			 		<label for="codCliente">Codigo de Sku</label>
  					<input type="text" id="codCliente" name="codCliente" readonly class="form-control" value="<?php echo $idSku; ?>">
-			 		<label for="modelo">Modelo</label>
-			 		<input type="text" id="modelo" name="modelo" readonly class="form-control" value="<?php obtenerModelo($id_producto); ?>">
 			 		<label for="color">Color</label>
 			 		<input type="text" id="color" name="color" readonly class="form-control" value="<?php obtenerColor($id_producto); ?>">
-			 		<label for="talla">Tecnica</label>
-			 		<input type="text" id="talla" name="talla" readonly class="form-control" value="<?php obtenerTecnica($id_producto); ?>">
 			 		<label for="precio">Precio de Venta</label>
 			 		<input type="text" id="precio" name="precio" readonly class="form-control" value="<?php obtenerTotalProducto($id_producto); ?>">
 			 		<label for="direccion" class="col-6">Imagen Codigo <?php 
@@ -440,8 +433,8 @@ $dato = obtenerModeloProductoSKU($idSku);
 			 		<input type="text" id="codCliente" name="codCliente" readonly class="form-control" value="<?php obtenerProductoVariacion($id_producto); ?>">
 			 		<label for="codCliente">Codigo de Sku</label>
  					<input type="text" id="codCliente" name="codCliente" readonly class="form-control" value="<?php echo $idSku; ?>">
-			 		<label for="modelo">Hoja</label>
-			 		<input type="text" id="modelo" name="modelo" readonly class="form-control" value="<?php obtenerModelo($id_producto); ?>">
+			 		<label for="hoja">Hoja</label>
+			 		<input type="text" id="hoja" name="hoja" readonly class="form-control" value="<?php obtenerHoja($id_producto); ?>">
 			 		<label for="color">Color</label>
 			 		<input type="text" id="color" name="color" readonly class="form-control" value="<?php obtenerColor($id_producto); ?>">
 			 		<label for="precio">Precio de Venta</label>

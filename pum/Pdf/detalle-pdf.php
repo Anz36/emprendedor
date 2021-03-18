@@ -13,7 +13,7 @@ Class PDF extends FPDF{
 		$this->SetFont('Times','B',10);
 		$this->Cell(0,5,'Informe Pedido',0,0,'');
 		//Posición
-		$this->Image('img/Logo-Compina.jpg',150, 5, 50, 20, 'jpg');
+		$this->Image('../img/Rincon_Emprendedor.png',150, 5, 50, 20);
 		$this->SetX(-30);
 		//$this->Write(5,'Compina');
 		$this->Ln(20);
@@ -34,8 +34,8 @@ $pdf->AliasNbPages();
 $pdf->AddPage('PORTRAIT','A4');
 //$pdf->SetMargins(10,30,20,20);
 session_start();
-include_once "funciones.php";
-include_once "funcionSession.php";
+include_once "../FuncionesExtra/funciones.php";
+include_once "../Sessiones/funcionSession.php";
 #Sí no esta logueado dentro del Sistema, salir inmediatamente.
 	if (empty($_SESSION["codUsuario"])) {
     # Lo redireccionamos al formulario de inicio de sesión
@@ -150,7 +150,7 @@ include_once "funcionSession.php";
 	$pdf->SetTextColor(40,40,40);
 	$pdf->SetFillColor(240,240,240);
 	$pdf->SetDrawColor(255,255,255);
-	$nombrePedido = obtenerNombreDelProducto($id_pedido);
+	$nombrePedido = utf8_decode(obtenerNombreDelProducto($id_pedido));
 	$granTotal = 0;
 	foreach ($nombrePedido as $producto) {
 		$skuPedido = obtenerCodigoProducto($producto->order_item_id);
@@ -194,15 +194,29 @@ include_once "funcionSession.php";
 $pdf->AddPage('PORTRAIT','A4');
 //$pdf->SetMargins(10,30,20,20);
 $pdf->SetFont('Times','',15);
-foreach ($nombrePedido as $articulo) {
-$idProducto = $articulo->order_item_id;
+$pedido = obtenerNombreDelProducto($id_pedido);
+foreach ($pedido as $articulo) {
+	$idProducto = $articulo->order_item_id;
+	$skuPedido = obtenerCodigoProducto($articulo->order_item_id);
+	foreach ($skuPedido as $codigoPedido) {
+				if ($codigoPedido->variation_id == 0) {
+							$codigoProducto = $codigoPedido->product_id;
+						}else{
+								$codigoProducto = $codigoPedido->variation_id;
+							}
+							$codigoProductoSKU = obtenerCodigoSKU($codigoProducto);
+							$costoPedido = obtenerCostoProducto($codigoProducto);
+							foreach ($codigoProductoSKU as $codigoProductoSku) {
+								$dato = $codigoProductoSku->sku;
+$idSku = obtenerModeloProductoSKU($dato);
 if ($idSku == "N.E") {
 	$pdf->Ln(10);
 	$pdf->Cell(10,5,'Detalle Producto Desconocido',0,1,'',0);
 	$pdf->Ln();
 	$pdf->Cell(10,5,'Contacte con su Supervisor en Jefe.',0,1,'',0);
-} else {
-					if ($idSku == "Polo") {
+}
+
+if ($idSku == "Polo") {
 					#Titulo
 					$pdf->Ln(10);
 					$pdf->Cell(10,5,'Detalle Producto Polo ',0,1,'',0);
@@ -273,10 +287,9 @@ if ($idSku == "N.E") {
 				 				$pdf->Cell(5,10,utf8_decode($codigoImagen),0,1,'',0); 
 				 				$pdf->Cell(5,125,'',0,1,'',0);
 				 				$pdf->Image($imagenURL,110,45,80,'',atributoImagen($imagenURL));
-					}
-	else {
-		if ($idSku == "Gorro") {
-				#Titulo
+}
+if ($idSku == "Gorro") {
+	#Titulo
 				$pdf->Ln(10);
 				$pdf->Cell(10,5,'Detalle Producto Gorro ',0,1,'',0);
 				$pdf->Ln();
@@ -336,12 +349,15 @@ if ($idSku == "N.E") {
 								}
 								$codigoImagen = obtenerCodigoImagenPDF($codigoProducto);
 			 					$imagenURL = obtenerUrlImagenPDF($codigoImagen);
-			 					$pdf->Cell(5,10,utf8_decode($codigoImagen),0,1,'',0); 
+			 					$pdf->Cell(5,10,utf8_decode($codigoImagen),0,1,'',0);
+			 					#$dato = substr(strrchr($url,":"),3);
+								#$concatenado = "../../../".$dato;
 			 					$pdf->Cell(5,135,$pdf->Image($imagenURL,110,45,80,'','',),1,1,'C',0);
 			 				}
-		} else {
-			if ($idSku == "Taza") {
-						#Titulo
+}
+
+if ($idSku == "Taza") {
+	#Titulo
 						$pdf->Ln(10);
 						$pdf->Cell(10,5,'Detalle Producto Taza ',0,1,'',0);
 						$pdf->Ln();
@@ -410,7 +426,7 @@ if ($idSku == "N.E") {
 					 					$pdf->Cell(5,10,utf8_decode($codigoImagen),0,1,'',0); 
 					 					$pdf->Cell(5,135,$pdf->Image($imagenURL,110,45,80,'','',),1,1,'C',0);
 					 				}
-			} else {
+}
 				if ($idSku == "M") {
 							#Titulo
 							$pdf->Ln(10);
@@ -440,12 +456,6 @@ if ($idSku == "N.E") {
 							$pdf->Cell(40,10,utf8_decode('Codigo de Variacion: '),0,0,'',0);
 							$pdf->SetFont('Times','',12.5);
 							$pdf->Cell(5,10,utf8_decode(obtenerProductoVariacionPDF($idProducto)),0,1,'',0);
-							#Label's Quinta Linea
-							$pdf->SetFont('Times','B',12.5);
-							$pdf->Write(5,'  ');
-							$pdf->Cell(20,10,utf8_decode('Modelo: '),0,0,'',0);
-							$pdf->SetFont('Times','',12.5);
-							$pdf->Cell(5,10,utf8_decode(obtenerModeloPDF($idProducto)),0,1,'',0);
 							#Label's Sexta Linea
 							$pdf->SetFont('Times','B',12.5);
 							$pdf->Write(5,'  ');
@@ -475,7 +485,7 @@ if ($idSku == "N.E") {
 						 					$pdf->Cell(5,10,utf8_decode($codigoImagen),0,1,'',0); 
 						 					$pdf->Cell(5,135,$pdf->Image($imagenURL,110,45,80,'','',),1,1,'C',0);
 						 				}
-				} else {
+				}
 					if ($idSku == "PM") {
 						#Titulo
 							$pdf->Ln(10);
@@ -534,7 +544,7 @@ if ($idSku == "N.E") {
 						 					$pdf->Cell(5,10,utf8_decode($codigoImagen),0,1,'',0); 
 						 					$pdf->Cell(5,135,$pdf->Image($imagenURL,110,45,80,'','',),1,1,'C',0);
 						 				}
-					}else{
+					}
 						if ($idSku == "L") {
 							#Titulo
 							$pdf->Ln(10);
@@ -599,7 +609,7 @@ if ($idSku == "N.E") {
 						 					$pdf->Cell(5,10,utf8_decode($codigoImagen),0,1,'',0); 
 						 					$pdf->Cell(5,135,$pdf->Image($imagenURL,110,45,80,'','',),1,1,'C',0);
 						 				}
-						} else {
+						} 
 							if ($idSku == "B") {
 								#Titulo
 							$pdf->Ln(10);
@@ -658,8 +668,9 @@ if ($idSku == "N.E") {
 						 					$pdf->Cell(5,10,utf8_decode($codigoImagen),0,1,'',0); 
 						 					$pdf->Cell(5,135,$pdf->Image($imagenURL,110,45,80,'','',),1,1,'C',0);
 						 				}
-							} else{
-								if ($idSku == "GAD") {
+							} 
+								
+					if ($idSku == "GAD") {
 									#Titulo
 							$pdf->Ln(10);
 							$pdf->Cell(10,5,'Detalle Producto Gadget ',0,1,'',0);
@@ -724,16 +735,9 @@ if ($idSku == "N.E") {
 						 					$pdf->Cell(5,135,$pdf->Image($imagenURL,110,45,80,'','',),1,1,'C',0);
 						 				}
 								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-}
-	
 	$pdf->SetFontSize(15);
+}
+}
 }
 $pdf->Output('I',"Pedido_".$id_pedido.".pdf");
 ?>

@@ -130,7 +130,7 @@ if (empty($_SESSION["codUsuario"])) {
 					 			<h5>Articulo o Producto</h5>
 					 		</div>
 					 		<div class="col" align="end">
-					 			<a class="btn btn-outline-warning btn-sm" target="_Blank" href="<?php echo "../Producto/detallePdf.php?id=".$idDetalle;?>">Ver <i class="icon ion-md-document"></i></a>
+					 			<a class="btn btn-outline-warning btn-sm" target="_Blank" href="<?php echo "../Pdf/detalle-pdf.php?id=".$idDetalle;?>">Ver <i class="icon ion-md-document"></i></a>
 					 		</div>
 					 	</div>
 					 	<br>
