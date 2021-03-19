@@ -39,7 +39,7 @@ include_once "../Sessiones/funcionSession.php";
 #Sí no esta logueado dentro del Sistema, salir inmediatamente.
 	if (empty($_SESSION["codUsuario"])) {
     # Lo redireccionamos al formulario de inicio de sesión
-    header("Location: formulario_login.php?mensaje=Necesita iniciar session para ingresar a la pagina protegida");
+    header("Location: ../Login/formulario_login.php?mensaje=Necesita iniciar session para ingresar a la pagina protegida");
     # Y salimos del script
     exit();
 }
@@ -173,9 +173,6 @@ include_once "../Sessiones/funcionSession.php";
 			$idSku = obtenerModeloProductoSKU($codigoProductoSku->sku);
 			$pdf->Cell(35,10,obtenerModeloProductoSKU($codigoProductoSku->sku),1,0,'C',1);
 		 }
-		#$modeloProducto = obtenerModeloProducto($producto->order_item_id);
- 		#	foreach ($modeloProducto as $nombreModelo) {
-		#$pdf->Cell(35,10,ucfirst($nombreModelo->meta_value),1,0,'C',1); }
 		$cantidad = obtenerCantidadPedido($producto->order_item_id);
  			foreach ($cantidad as $cantidadPedido) {
 		$pdf->Cell(20,10,$cantidadPedido->product_qty,1,0,'C',1); }
@@ -286,7 +283,9 @@ if ($idSku == "Polo") {
 				 				}
 				 				$pdf->Cell(5,10,utf8_decode($codigoImagen),0,1,'',0); 
 				 				$pdf->Cell(5,125,'',0,1,'',0);
-				 				$pdf->Image($imagenURL,110,45,80,'',atributoImagen($imagenURL));
+				 				$dato = substr(strrchr($imagenURL,":"),3);
+								$concatenado = "../../../".$dato;
+				 				$pdf->Image($concatenado,110,45,80,'',atributoImagen($imagenURL));
 }
 if ($idSku == "Gorro") {
 	#Titulo
@@ -350,9 +349,10 @@ if ($idSku == "Gorro") {
 								$codigoImagen = obtenerCodigoImagenPDF($codigoProducto);
 			 					$imagenURL = obtenerUrlImagenPDF($codigoImagen);
 			 					$pdf->Cell(5,10,utf8_decode($codigoImagen),0,1,'',0);
-			 					#$dato = substr(strrchr($url,":"),3);
-								#$concatenado = "../../../".$dato;
-			 					$pdf->Cell(5,135,$pdf->Image($imagenURL,110,45,80,'','',),1,1,'C',0);
+			 					$pdf->Cell(5,125,'',0,1,'',0);
+				 				$dato = substr(strrchr($imagenURL,":"),3);
+								$concatenado = "../../../".$dato;
+				 				$pdf->Image($concatenado,110,45,80,'',atributoImagen($imagenURL));
 			 				}
 }
 
@@ -424,7 +424,10 @@ if ($idSku == "Taza") {
 										$codigoImagen = obtenerCodigoImagenPDF($codigoProducto);
 					 					$imagenURL = obtenerUrlImagenPDF($codigoImagen);
 					 					$pdf->Cell(5,10,utf8_decode($codigoImagen),0,1,'',0); 
-					 					$pdf->Cell(5,135,$pdf->Image($imagenURL,110,45,80,'','',),1,1,'C',0);
+					 					$pdf->Cell(5,125,'',0,1,'',0);
+				 				$dato = substr(strrchr($imagenURL,":"),3);
+								$concatenado = "../../../".$dato;
+				 				$pdf->Image($concatenado,110,45,80,'',atributoImagen($imagenURL));
 					 				}
 }
 				if ($idSku == "M") {
@@ -483,7 +486,10 @@ if ($idSku == "Taza") {
 											$codigoImagen = obtenerCodigoImagenPDF($codigoProducto);
 						 					$imagenURL = obtenerUrlImagenPDF($codigoImagen);
 						 					$pdf->Cell(5,10,utf8_decode($codigoImagen),0,1,'',0); 
-						 					$pdf->Cell(5,135,$pdf->Image($imagenURL,110,45,80,'','',),1,1,'C',0);
+						 					$pdf->Cell(5,125,'',0,1,'',0);
+				 				$dato = substr(strrchr($imagenURL,":"),3);
+								$concatenado = "../../../".$dato;
+				 				$pdf->Image($concatenado,110,45,80,'',atributoImagen($imagenURL));
 						 				}
 				}
 					if ($idSku == "PM") {
@@ -542,7 +548,10 @@ if ($idSku == "Taza") {
 											$codigoImagen = obtenerCodigoImagenPDF($codigoProducto);
 						 					$imagenURL = obtenerUrlImagenPDF($codigoImagen);
 						 					$pdf->Cell(5,10,utf8_decode($codigoImagen),0,1,'',0); 
-						 					$pdf->Cell(5,135,$pdf->Image($imagenURL,110,45,80,'','',),1,1,'C',0);
+						 					$pdf->Cell(5,125,'',0,1,'',0);
+				 				$dato = substr(strrchr($imagenURL,":"),3);
+								$concatenado = "../../../".$dato;
+				 				$pdf->Image($concatenado,110,45,80,'',atributoImagen($imagenURL));
 						 				}
 					}
 						if ($idSku == "L") {
@@ -607,7 +616,10 @@ if ($idSku == "Taza") {
 											$codigoImagen = obtenerCodigoImagenPDF($codigoProducto);
 						 					$imagenURL = obtenerUrlImagenPDF($codigoImagen);
 						 					$pdf->Cell(5,10,utf8_decode($codigoImagen),0,1,'',0); 
-						 					$pdf->Cell(5,135,$pdf->Image($imagenURL,110,45,80,'','',),1,1,'C',0);
+						 					$pdf->Cell(5,125,'',0,1,'',0);
+				 				$dato = substr(strrchr($imagenURL,":"),3);
+								$concatenado = "../../../".$dato;
+				 				$pdf->Image($concatenado,110,45,80,'',atributoImagen($imagenURL));
 						 				}
 						} 
 							if ($idSku == "B") {
@@ -666,7 +678,10 @@ if ($idSku == "Taza") {
 											$codigoImagen = obtenerCodigoImagenPDF($codigoProducto);
 						 					$imagenURL = obtenerUrlImagenPDF($codigoImagen);
 						 					$pdf->Cell(5,10,utf8_decode($codigoImagen),0,1,'',0); 
-						 					$pdf->Cell(5,135,$pdf->Image($imagenURL,110,45,80,'','',),1,1,'C',0);
+						 					$pdf->Cell(5,125,'',0,1,'',0);
+				 				$dato = substr(strrchr($imagenURL,":"),3);
+								$concatenado = "../../../".$dato;
+				 				$pdf->Image($concatenado,110,45,80,'',atributoImagen($imagenURL));
 						 				}
 							} 
 								
@@ -732,7 +747,10 @@ if ($idSku == "Taza") {
 											$codigoImagen = obtenerCodigoImagenPDF($codigoProducto);
 						 					$imagenURL = obtenerUrlImagenPDF($codigoImagen);
 						 					$pdf->Cell(5,10,utf8_decode($codigoImagen),0,1,'',0); 
-						 					$pdf->Cell(5,135,$pdf->Image($imagenURL,110,45,80,'','',),1,1,'C',0);
+						 					$pdf->Cell(5,125,'',0,1,'',0);
+				 				$dato = substr(strrchr($imagenURL,":"),3);
+								$concatenado = "../../../".$dato;
+				 				$pdf->Image($concatenado,110,45,80,'',atributoImagen($imagenURL));
 						 				}
 								}
 	$pdf->SetFontSize(15);

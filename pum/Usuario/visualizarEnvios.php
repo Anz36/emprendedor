@@ -23,15 +23,12 @@ $listaProveedor = obtenerDatosProveedores();
 			            <button class="btn-item">
 			            	<span>
 			            		Razon :  <?php echo $lista->titulo; ?>
+			            		<span class="badge rounded-pill bg-light text-dark" style="font-weight: bold;"> <?php echo obtenerStatusDocumento($lista->id_status) ?></span>
 			            	</span>
 			            </button>
 			    <div class="accordion-content">
 			    	<div class="row">
 			    		<div class="container py-2">
-			    			<div class="col-3">
-			    				<h5>Prioridad <span class="badge rounded-pill bg-light text-dark" style="font-weight: bold;"> <?php echo obtenerStatusDocumento($lista->id_status) ?></span></h5>
-			    				
-			    			</div>
 			    			<div class="col-3">
 			    				<h6>Fecha</h6> 
 			    				<input type="datetime" name="fecha" value="<?php echo $lista->fecha; ?>" class="form-control" readonly>

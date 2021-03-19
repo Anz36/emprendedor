@@ -1,3 +1,4 @@
 <?php 
-	echo utf8_encode("Niña");
+	include_once "../VistaAdmin/funciones.php";
+	print_r(filtroListaPedido());
  ?>

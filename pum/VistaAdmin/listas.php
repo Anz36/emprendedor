@@ -1,6 +1,7 @@
 <?php include_once "../VistaAdmin/main.php";
 	  include_once "../Sessiones/funcionSession.php";
 	  include_once "../FuncionesExtra/funciones.php";
+	  include_once "../VistaAdmin/funciones.php";
 if (empty($_SESSION["codUsuario"])) {
     # Lo redireccionamos al formulario de inicio de sesión
     header("Location: ../Login/formulario_login.php?mensaje=Necesita iniciar session para ingresar a la pagina protegida");
@@ -47,7 +48,8 @@ if (empty($_SESSION["codUsuario"])) {
 			</div>
 		</div>
  <div class="container-fluid">
-		<?php 
+ <?php 
+		
 		if (!isset($_GET["estado"])){
 		$paginasPropuestas = 5;
 		$pagina = 1;
@@ -61,13 +63,15 @@ if (empty($_SESSION["codUsuario"])) {
 		$conteo = $sentencia->fetchObject()->conteo;
   		$paginas = ceil($conteo / $paginasPropuestas);
 
-		$sentencia = $db->prepare("SELECT * FROM wp_wc_order_stats ORDER BY date_created DESC LIMIT ? OFFSET ?");
-  		$sentencia->execute([$limit,$offSet]);
- 		$paginaLimit = $sentencia->fetchAll(PDO::FETCH_OBJ);
+		$sentencia = $db->prepare("SELECT * FROM wp_wc_order_stats WHERE status != 'wc-completed' AND status != 'wc-failed' AND status != 'wc-cancelled' ORDER BY atencion ASC, date_created DESC LIMIT ? OFFSET ?");
+		$sentencia->execute([$limit,$offSet]);
+  		$sentencia->execute();
+ 		$paginaLimit = $sentencia->fetchAll();
 		//$listar = obtenerListas();
 		foreach ($paginaLimit as $listaDetalles) {
-			$idDetalle = $listaDetalles->order_id;
-			$granTotal = 0;
+            $listasDetalles = $sentencia->fetchObject();
+            $idDetalle = $listaDetalles->order_id;
+            $granTotal = 0;
 			?>
 			<div class="accordion-main">
 			    <div class="list-accordion">
@@ -75,14 +79,80 @@ if (empty($_SESSION["codUsuario"])) {
 			            <button class="btn-item">
 			            	<span>
 			            		Detalle # <?php echo $idDetalle; ?>
-			            	</span>
+			            	</span>&nbsp;
+			            	<span class="badge rounded-pill bg-light text-dark" style="font-weight: bold;"> <?php echo atencionUsuario($idDetalle);  ?></span>&nbsp;
+			            	<span class="badge rounded-pill bg-light text-dark" style="font-weight: bold;"> <?php echo disponibleUsuario($idDetalle) ?></span>
 			            </button>
 			    <div class="accordion-content">
-					<div class="container">
-						<br>
-					 	<h4>Detalle Pedido # <?php echo $idDetalle; ?></h4>
-					 	<br>
-					 </div>
+			    	<div class="container">
+			    	<div class="row">
+			    		<div class="col-10">
+							<br>
+						 	<h4>Detalle Pedido # <?php echo $idDetalle; ?></h4>
+						 	<br>
+			    		</div>
+			    		<div class="col-2">
+			    		
+			    	<button type="submit" style="background-color: #219D9F; color: #fff" class="btn btn" data-toggle="modal" data-target="#myModal_<?php echo $idDetalle; ?>">
+					    Atender Pedido
+					</button>
+						  		
+										<!-- The Modal -->
+							  <div class="modal" id="myModal_<?php echo $idDetalle; ?>">
+							    <div class="modal-dialog">
+							      <div class="modal-content">
+							        <!-- Modal Header -->
+							        <div class="modal-header">
+							          <h4 class="modal-title">Atender Pedido</h4>
+							          <button type="button" class="close" data-dismiss="modal">&times;</button>
+							        </div>
+							        
+							        <!-- Modal body -->
+							        <div class="modal-body">
+							        	<div class="container">
+							        		<div class="row">
+							        			<div class="col">
+							        				<h5> Pedido # <?php echo $idDetalle; ?></h5>
+							        			</div>
+							        			<div class="col">
+							        				<h6 class="text-muted"> Usuario : <?php echo $datoPersona->nombre; ?></h6>
+							        			</div>		
+							        		</div>
+							        		<div class="row">
+							        			<div class="col-2">
+							        				<label for="atender">Atender: </label>
+							        			</div>
+							        			<div class="col-5">
+							        				<form method="POST" action="actualizarAtencion.php">
+							        				
+							        				<select name="atender" class="form-control">
+							        					<option value="1">Pendiente</option>
+							        					<option value="2">Procesando</option>
+							        					<option value="3">En Espera</option>
+							        					<option value="4">Cancelado</option>
+							        					<option value="5">Reembolsado</option>
+							        					<option value="6">Compleado</option>
+							        				</select>
+							        				<input type="hidden" name="id" value="<?php echo $idDetalle; ?>">
+							        				<input type="hidden" name="idPersona" value="<?php echo $datoPersona->id; ?>">
+							        			</div>
+							        		</div>
+							        	</div>
+							        </div>
+							        
+							        <!-- Modal footer -->
+							        <div class="modal-footer">
+							        	<button type="submit" class="btn btn" style="background-color: #219D9F; color: #fff" name="modificar_<?php echo $idDetalle; ?>">Modificar</button>
+							        	</form>
+							          	<button type="button" class="btn btn" style="background-color: #219D9F; color: #fff" data-dismiss="modal">Cerrar</button>
+							        </div>
+							      </div>
+							    </div>
+							  </div>
+			    		</div>
+			    	</div>
+			    	</div>
+					
 					 <div class="container">
 					 	<div class="row">
 					 		<div class="col">
@@ -267,6 +337,8 @@ if (empty($_SESSION["codUsuario"])) {
 			                <span>
 			                    Detalle # <?php echo $idDetalleEstado;?> | Estado : <?php determinarEstado($listaPorEstados->status); ?>
 			                </span>
+			                <span class="badge rounded-pill bg-light text-dark" style="font-weight: bold;"> <?php echo atencionUsuario($idDetalleEstado);  ?></span>&nbsp;
+			            	<span class="badge rounded-pill bg-light text-dark" style="font-weight: bold;"> <?php echo disponibleUsuario($idDetalleEstado) ?></span>
 			            </p>
 			    <div class="accordion-content">
 					<div class="container">
@@ -355,7 +427,7 @@ if (empty($_SESSION["codUsuario"])) {
 									foreach ($codigoProductoSKU as $codigoProductoSku) {
 					 				?>
 					 			<tr>
-					 				<td><a target="_blank" href="<?php echo "detalle-producto.php?id=". $producto->order_item_id."&skuModelo=".$codigoProductoSku->sku;?>"> 
+					 				<td><a href="<?php echo "../Producto/detalle-producto.php?id=". $producto->order_item_id."&skuModelo=".$codigoProductoSku->sku;?>"> 
 					 					<?php echo $producto->order_item_name; ?></td>
 					 				<td><?php 
 					 					# Codigo SKU
@@ -409,4 +481,5 @@ if (empty($_SESSION["codUsuario"])) {
 		<?php } ?>
 <?php	} ?>
 	</div>
+
  <?php include_once "../VistaAdmin/pie.php"; ?>
