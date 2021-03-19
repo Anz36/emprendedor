@@ -608,5 +608,4 @@ $dato = obtenerModeloProductoSKU($idSku);
 	}
 } ?>
 </div>
-</body> 
-</html>
+<?php include_once "../VistaAdmin/pie.php"; ?>

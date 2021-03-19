@@ -427,7 +427,7 @@ if ($idSku == "Taza") {
 					 					$pdf->Cell(5,125,'',0,1,'',0);
 				 				$dato = substr(strrchr($imagenURL,":"),3);
 								$concatenado = "../../../".$dato;
-				 				$pdf->Image($concatenado,110,45,80,'',atributoImagen($imagenURL));
+				 				$pdf->Image($concatenado,110,45,80,'');
 					 				}
 }
 				if ($idSku == "M") {
