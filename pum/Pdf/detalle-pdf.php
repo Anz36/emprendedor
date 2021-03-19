@@ -150,7 +150,7 @@ include_once "../Sessiones/funcionSession.php";
 	$pdf->SetTextColor(40,40,40);
 	$pdf->SetFillColor(240,240,240);
 	$pdf->SetDrawColor(255,255,255);
-	$nombrePedido = utf8_decode(obtenerNombreDelProducto($id_pedido));
+	$nombrePedido = obtenerNombreDelProducto($id_pedido);
 	$granTotal = 0;
 	foreach ($nombrePedido as $producto) {
 		$skuPedido = obtenerCodigoProducto($producto->order_item_id);
@@ -162,7 +162,7 @@ include_once "../Sessiones/funcionSession.php";
 					}
 				$codigoProductoSKU = obtenerCodigoSKU($codigoProducto);
 				$costoPedido = obtenerCostoProducto($codigoProducto);
-		$pdf->Cell(50,10,$producto->order_item_name,1,0,'C',1);
+		$pdf->Cell(50,10,utf8_decode($producto->order_item_name),1,0,'C',1);
 		foreach ($codigoProductoSKU as $codigoProductoSku) {
 			if ($codigoProductoSku->sku == null) {
 				$pdf->Cell(30,10,"N.E",1,0,'C',1);		

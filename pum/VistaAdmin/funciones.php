@@ -122,9 +122,14 @@
     #Captraumos la ID 
     function capturarIdPedido($idUsuario){
     	$db = obtenerBaseDeDatos();
-    	$sentencia = $db->prepare("SELECT pedido FROM atencion WHERE id_persona = ?  ORDER BY fecha DESC LIMIT 1");
+    	$sentencia = $db->prepare("SELECT * FROM atencion WHERE id_persona = ?  ORDER BY fecha DESC LIMIT 1");
     	$sentencia->execute([$idUsuario]);
-    	return $sentencia->fetchObject()->pedido;
+    	$dato = $sentencia->fetchObject();
+    	if ($dato) {
+    		return $dato->pedido;
+    	} else {
+    		return null;
+    	}
     }
     #Update status
     function updatePedido($idPersona,$idPedido,$status){

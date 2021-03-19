@@ -10,6 +10,14 @@
     exit();
 	}
 	$detalle = capturarIdPedido($datoPersona->id);
+	if ($detalle == null) { ?>
+		<div class="row">
+			<div class="col">
+				<h1>Usted no esta atendiendo un pedido</h1>
+			</div>
+		</div>
+	<?php
+	}
 	$nombreStatus = disponibleUsuario($detalle);
 	if ($nombreStatus == "Pendiente" || $nombreStatus == "Procesando" || $nombreStatus == "En Espera" || $nombreStatus == "Reembolsado") {
 		$idDetalle = capturarIdPedido($datoPersona->id);
@@ -127,6 +135,9 @@
 					 	<div class="row">
 					 		<div class="col">
 					 			<h5>Articulo o Producto</h5>
+					 		</div>
+					 		<div class="col" align="end">
+					 			<a class="btn btn-outline-warning btn-sm" target="_Blank" href="<?php echo "../Pdf/detalle-pdf.php?id=".$idDetalle;?>">PDF <i class="icon ion-md-document"></i></a>
 					 		</div>
 					 	</div>
 					 	<br>
@@ -587,7 +598,7 @@ $dato = obtenerModeloProductoSKU($idSku);
 	
 </div>
 <?php } else {
-	if ($nombreStatus == "Disponible" || $nombreStatus == "Cancelado" || $nombreStatus == "Completado") { ?>
+	if ($nombreStatus == "Cancelado" || $nombreStatus == "Completado") { ?>
 		<div class="row">
 			<div class="col">
 				<h1>Usted no esta atendiendo un pedido</h1>

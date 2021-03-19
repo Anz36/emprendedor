@@ -59,7 +59,7 @@ if (empty($_SESSION["codUsuario"])) {
 		$limit = $paginasPropuestas;
 		$offSet = ($pagina - 1) * $paginasPropuestas;
 		$db = obtenerBaseDeDatosSecundaria();
-		$sentencia = $db->query("SELECT count(*) AS conteo FROM wp_wc_order_stats");
+		$sentencia = $db->query("SELECT count(*) AS conteo FROM wp_wc_order_stats WHERE status != 'wc-completed' AND status != 'wc-failed' AND status != 'wc-cancelled' ");
 		$conteo = $sentencia->fetchObject()->conteo;
   		$paginas = ceil($conteo / $paginasPropuestas);
 
@@ -341,11 +341,74 @@ if (empty($_SESSION["codUsuario"])) {
 			            	<span class="badge rounded-pill bg-light text-dark" style="font-weight: bold;"> <?php echo disponibleUsuario($idDetalleEstado) ?></span>
 			            </p>
 			    <div class="accordion-content">
-					<div class="container">
-						<br>
-					 	<h4>Detalle Pedido # <?php echo $idDetalleEstado; ?></h4>
+			    	<div class="row">
+			    		<div class="container">
+			    			<div class="col-10">
+			    				<h4>Detalle Pedido # <?php echo $idDetalleEstado; ?></h4>
+			    			</div>
+			    			<div class="col-2">
+			    				<button type="submit" style="background-color: #219D9F; color: #fff" class="btn btn" data-toggle="modal" data-target="#myModal_<?php echo $idDetalleEstado; ?>">
+								    Atender Pedido
+								  </button>
+
+								  <!-- The Modal -->
+								  <div class="modal" id="myModal_<?php echo $idDetalleEstado; ?>">
+								    <div class="modal-dialog">
+								      <div class="modal-content">
+								      
+								        <!-- Modal Header -->
+								        <div class="modal-header">
+								          <h4 class="modal-title">Atender Pedido</h4>
+								          <button type="button" class="close" data-dismiss="modal">&times;</button>
+								        </div>
+								        
+								        <!-- Modal body -->
+								        <div class="modal-body">
+								          <div class="container">
+							        		<div class="row">
+							        			<div class="col">
+							        				<h5> Pedido # <?php echo $idDetalleEstado; ?></h5>
+							        			</div>
+							        			<div class="col">
+							        				<h6 class="text-muted"> Usuario : <?php echo $datoPersona->nombre; ?></h6>
+							        			</div>		
+							        		</div>
+							        		<div class="row">
+							        			<div class="col-2">
+							        				<label for="atender">Atender: </label>
+							        			</div>
+							        			<div class="col-5">
+							        				<form method="POST" action="actualizarAtencion.php">
+							        				<select name="atender" class="form-control">
+							        					<option value="1">Pendiente</option>
+							        					<option value="2">Procesando</option>
+							        					<option value="3">En Espera</option>
+							        					<option value="4">Cancelado</option>
+							        					<option value="5">Reembolsado</option>
+							        					<option value="6">Completado</option>
+							        				</select>
+							        				<input type="hidden" name="id" value="<?php echo $idDetalleEstado; ?>">
+							        				<input type="hidden" name="idPersona" value="<?php echo $datoPersona->id; ?>">
+							        			</div>
+							        		</div>
+							        	</div>
+								        </div>
+								        
+								        <!-- Modal footer -->
+								        <div class="modal-footer">
+								        	<button type="submit" class="btn btn" style="background-color: #219D9F; color: #fff" name="modificar_<?php echo $idDetalleEstado; ?>">Modificar</button>
+							        	</form>
+								          <button type="button" class="btn btn" style="background-color: #219D9F; color: #fff" data-dismiss="modal">Cerrar</button>
+								        </div>
+								        
+								      </div>
+								    </div>
+								  </div>
+			    			</div>
 					 	<br>
-					 </div>
+					 	</div>
+			    	</div>
+					
 					 <div class="container">
 					 	<div class="row">
 					 		<div class="col">
