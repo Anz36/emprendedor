@@ -131,7 +131,7 @@ if (empty($_SESSION["codUsuario"])) {
 							        					<option value="3">En Espera</option>
 							        					<option value="4">Cancelado</option>
 							        					<option value="5">Reembolsado</option>
-							        					<option value="6">Compleado</option>
+							        					<option value="6">Completado</option>
 							        				</select>
 							        				<input type="hidden" name="id" value="<?php echo $idDetalle; ?>">
 							        				<input type="hidden" name="idPersona" value="<?php echo $datoPersona->id; ?>">

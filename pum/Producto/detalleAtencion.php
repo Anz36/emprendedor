@@ -2,8 +2,6 @@
     include_once "../VistaAdmin/main.php";
     include_once "../FuncionesExtra/funciones.php"; include_once "../Sessiones/funcionSession.php";
     include_once "../VistaAdmin/funciones.php";
-
-	
 	$granTotal = 0;
 	if (empty($_SESSION["codUsuario"])) {
     # Lo redireccionamos al formulario de inicio de sesión
@@ -40,11 +38,32 @@
 									        
 									        <!-- Modal body -->
 									        <div class="modal-body">
-									          Modal body..
+									          <div class="row">
+									          	<div class="col">
+									          		<h5>Pedido # <?php echo $idDetalle; ?></h5>
+									          	</div>
+									          	<div class="col">
+									          		<h6 class="text-muted">Usuario : <?php echo $datoPersona->nombre; ?></h6>
+									          	</div>
+									          </div>
+									          <div class="row">
+									          	<div class="col-7">
+									          		<label for="atender">Atención</label>
+									          		<select name="atender" class="form-control">
+									          			<option value="1">Pendiente</option>
+							        					<option value="2">Procesando</option>
+							        					<option value="3">En Espera</option>
+							        					<option value="4">Cancelado</option>
+							        					<option value="5">Reembolsado</option>
+							        					<option value="6">Completado</option>
+									          		</select>
+									          	</div>
+									          </div>
 									        </div>
 									        
 									        <!-- Modal footer -->
 									        <div class="modal-footer">
+									        	<button type="submit" class="btn btn" style="background-color: #219D9F; color: #fff" name="actualizar">Modificar</button>
 									          <button type="button" class="btn btn" style="background-color: #219D9F; color: #fff" data-dismiss="modal">Close</button>
 									        </div>
 									        
