@@ -9,7 +9,10 @@
     # Y salimos del script
     exit();
 	}
-	$idDetalle = capturarIdPedido($datoPersona->id);
+	$detalle = capturarIdPedido($datoPersona->id);
+	$nombreStatus = disponibleUsuario($detalle);
+	if ($nombreStatus == "Pendiente" || $nombreStatus == "Procesando" || $nombreStatus == "En Espera" || $nombreStatus == "Reembolsado") {
+		$idDetalle = capturarIdPedido($datoPersona->id);
  ?>
         <div class="row">
 					<div class="container">
@@ -18,10 +21,10 @@
 							<h4>Detalle Pedido # <?php echo $idDetalle; ?></h4>
 							&nbsp;
 			            	<span class="badge rounded-pill bg-light text-dark" style="font-weight: bold;"> <?php echo atencionUsuario($idDetalle);  ?></span>&nbsp;
-			            	<span class="badge rounded-pill bg-light text-dark" style="font-weight: bold;"> <?php echo disponibleUsuario($idDetalle) ?></span>
+			            	<span class="badge rounded-pill bg-light text-dark" style="font-weight: bold;"> <?php echo disponibleUsuario($idDetalle); ?></span>
 							</div>
 							<div class="col offset-7">
-								<button type="button" class="btn btn" style="background-color: <?php echo "#219D9F"; ?>; color: #fff" data-toggle="modal" data-target="#myModal">
+								<button type="button" class="btn btn" style="background-color: <?php echo color(disponibleUsuario($idDetalle)); ?>; color: black" data-toggle="modal" data-target="#myModal">
 									    Modo de Atención
 									  </button>
 
@@ -48,6 +51,7 @@
 									          </div>
 									          <div class="row">
 									          	<div class="col-7">
+									          		<form action="actualizarProducto.php" method="POST">
 									          		<label for="atender">Atención</label>
 									          		<select name="atender" class="form-control">
 									          			<option value="1">Pendiente</option>
@@ -57,6 +61,8 @@
 							        					<option value="5">Reembolsado</option>
 							        					<option value="6">Completado</option>
 									          		</select>
+									          		<input type="hidden" name="id" value="<?php echo $idDetalle; ?>">
+									          		<input type="hidden" name="idUsuario" value="<?php echo $datoPersona->id; ?>">
 									          	</div>
 									          </div>
 									        </div>
@@ -64,6 +70,7 @@
 									        <!-- Modal footer -->
 									        <div class="modal-footer">
 									        	<button type="submit" class="btn btn" style="background-color: #219D9F; color: #fff" name="actualizar">Modificar</button>
+									        	</form>
 									          <button type="button" class="btn btn" style="background-color: #219D9F; color: #fff" data-dismiss="modal">Close</button>
 									        </div>
 									        
@@ -578,8 +585,17 @@ $dato = obtenerModeloProductoSKU($idSku);
 		}
 	} ?>
 	
-</section>
-
+</div>
+<?php } else {
+	if ($nombreStatus == "Disponible" || $nombreStatus == "Cancelado" || $nombreStatus == "Completado") { ?>
+		<div class="row">
+			<div class="col">
+				<h1>Usted no esta atendiendo un pedido</h1>
+			</div>
+		</div>
+		<?php
+	}
+} ?>
 </div>
 </body> 
 </html>
