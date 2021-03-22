@@ -97,7 +97,7 @@ if (empty($_SESSION["codUsuario"])) {
 					    Atender Pedido
 					</button>
 						  		
-										<!-- The Modal -->
+						<!-- The Modal -->
 							  <div class="modal" id="myModal_<?php echo $idDetalle; ?>">
 							    <div class="modal-dialog">
 							      <div class="modal-content">
@@ -152,7 +152,7 @@ if (empty($_SESSION["codUsuario"])) {
 			    		</div>
 			    	</div>
 			    	</div>
-					
+
 					 <div class="container">
 					 	<div class="row">
 					 		<div class="col">
@@ -193,7 +193,9 @@ if (empty($_SESSION["codUsuario"])) {
 					 		</div>
 					 	</div>
 					 </div>
+
 					 <br>
+					 
 					 <div class="container">
 					 	<div class="row">
 					 		<div class="col">

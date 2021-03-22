@@ -88,6 +88,8 @@ if ($estadoUsuario->tipoUsuario == "Administrador" || $estadoUsuario->tipoUsuari
             if ($estadoUsuario->tipoUsuario == "Usuario") { ?>
             <a href="../VistaAdmin/listas.php" class="list-group-item list-group-item-action  active text-muted bg-faded p-3 border-0"><i
             class="icon ion-md-apps lead mr-2"></i> Usuario</a>
+            <a href="../Usuario/busqueda.php" class="list-group-item list-group-item-action text-muted bg-light p-3 border-0"><i
+            class="icon ion-md-search lead mr-2"></i> Busqueda de Pedido </a>
         <a href="../VistaAdmin/listas.php" class="list-group-item list-group-item-action text-muted bg-light p-3 border-0" id="alternar-menu"><i
             class="icon ion-md-people lead mr-2"></i> Vista del Rincon Emprendedor</a>
             <a href="../Producto/detalleAtencion.php" class="list-group-item list-group-item-action text-muted bg-light p-3 border-0" id="alternar-menu"><i
@@ -102,7 +104,7 @@ if ($estadoUsuario->tipoUsuario == "Administrador" || $estadoUsuario->tipoUsuari
         if ($estadoUsuario->tipoUsuario == "Proveedor") { ?>
       <a href="../Proveedor/pedidoProveedor.php" class="list-group-item list-group-item-action  active text-muted bg-faded p-3 border-0"><i
             class="icon ion-md-apps lead mr-2"></i> Proveedor</a>
-        <a href="../Proveedor/pedidoProveedor.php" class="list-group-item list-group-item-action text-muted bg-light p-3 border-0" id="alternar-menu"><i
+      <a href="../Proveedor/pedidoProveedor.php" class="list-group-item list-group-item-action text-muted bg-light p-3 border-0" id="alternar-menu"><i
             class="icon ion-md-cube lead mr-2"></i> Pedidos</a> 
       <?php
         }
