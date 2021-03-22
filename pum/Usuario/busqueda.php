@@ -9,7 +9,8 @@ if (empty($_SESSION["codUsuario"])) {
     # Y salimos del script
     exit();
 }
-$consulta = "SELECT * FROM wp_wc_order_stats ORDER BY date_created DESC, atencion ASC";
+
+	$consulta = "SELECT * FROM wp_wc_order_stats ORDER BY date_created DESC, atencion ASC";
 
   $fechaInicio = null;
   $fechaFinal = null;
@@ -215,7 +216,8 @@ $consulta = "SELECT * FROM wp_wc_order_stats ORDER BY date_created DESC, atencio
 									foreach ($codigoProductoSKU as $codigoProductoSku) {
 					 				?>
 					 			<tr>
-					 				<td><a href="<?php echo "../Producto/detalle-producto.php?id=". $producto->order_item_id."&skuModelo=".$codigoProductoSku->sku;?>"> 
+					 				<td>
+					 			<!--		<a href="<?php #echo "../Producto/detalle-producto.php?id=". $producto->order_item_id."&skuModelo=".$codigoProductoSku->sku;?>">  -->
 					 					<?php echo $producto->order_item_name; ?></td>
 					 				<td><?php 
 					 					# Codigo SKU

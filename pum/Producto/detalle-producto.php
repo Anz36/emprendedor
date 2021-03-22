@@ -23,7 +23,7 @@ include_once "../FuncionesExtra/funciones.php";
 <div class="container">
 	<h1>Detalle del Producto Polo</h1>
 	<br>
-	<a href="../VistaAdmin/listas.php" class="btn btn-outline-warning offset-10">Volver</a>
+	<a href="../VistaAdmin/listas.php" class="btn btn-outline-warning offset-10">Volver</a> 
 </div>
  <div class="container">
  	<br>
