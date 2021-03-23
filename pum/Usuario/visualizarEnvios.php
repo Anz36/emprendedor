@@ -5,7 +5,7 @@ if (empty($_SESSION["codUsuario"])) {
     # Y salimos del script
     exit();
 }
-$listaProveedor = obtenerDatosProveedores();
+$listaProveedor = obtenerDatosProveedores($datoPersona->id);
 ?>
 <div class="row">
 	<div class="col-auto">
@@ -16,14 +16,18 @@ $listaProveedor = obtenerDatosProveedores();
 </div>
 <div class="row">
 	<div class="col">
-		<?php foreach ($listaProveedor as $lista) { ?>
+		<?php foreach ($listaProveedor as $lista) { 
+			$listasDatos = obtenerDatosEnvios($lista->id);
+			foreach ($listasDatos as $datos) { 
+				$estadoPrioridad = $datos->id_status;
+				?>
 			<div class="accordion-main">
 			    <div class="list-accordion">
 			        <div class="item">
 			            <button class="btn-item">
 			            	<span>
 			            		Razon :  <?php echo $lista->titulo; ?>
-			            		<span class="badge rounded-pill bg-light text-dark" style="font-weight: bold;"> <?php echo obtenerStatusDocumento($lista->id_status) ?></span>
+			            		<span class="badge rounded-pill bg-light text-dark" style="font-weight: bold;"> <?php  echo obtenerStatusDocumento($estadoPrioridad); ?></span>
 			            	</span>
 			            </button>
 			    <div class="accordion-content">
@@ -38,7 +42,7 @@ $listaProveedor = obtenerDatosProveedores();
 			    	<div class="row">
 			    		<div class="container py3">
 			    			<div class="col">
-			    			<h5>Visualizacion o Descargas del PDF <span class="badge rounded-pill bg-light text-dark" style="font-weight: bold;"> <?php echo $lista->visulizaciones ?></span></h5>	
+			    			<h5>Visualizacion o Descargas del PDF <span class="badge rounded-pill bg-light text-dark" style="font-weight: bold;"> <?php echo $datos->visulizaciones ?></span></h5>	
 			    			</div>
 			    		</div>
 			    	</div>
@@ -46,7 +50,8 @@ $listaProveedor = obtenerDatosProveedores();
 			</div>
 		</div>
 	</div>
-	<?php } ?>
+	<?php }
+	} ?>
 </div>
 
 </div>

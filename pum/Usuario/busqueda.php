@@ -217,7 +217,7 @@ if (empty($_SESSION["codUsuario"])) {
 					 				?>
 					 			<tr>
 					 				<td>
-					 			<!--		<a href="<?php #echo "../Producto/detalle-producto.php?id=". $producto->order_item_id."&skuModelo=".$codigoProductoSku->sku;?>">  -->
+					 					<a href="<?php echo "../Producto/detalle-producto.php?id=". $producto->order_item_id."&skuModelo=".$codigoProductoSku->sku."&referencia=1;"?>"> 
 					 					<?php echo $producto->order_item_name; ?></td>
 					 				<td><?php 
 					 					# Codigo SKU

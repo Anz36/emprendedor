@@ -23,7 +23,11 @@ include_once "../FuncionesExtra/funciones.php";
 <div class="container">
 	<h1>Detalle del Producto Polo</h1>
 	<br>
-	<a href="../VistaAdmin/listas.php" class="btn btn-outline-warning offset-10">Volver</a> 
+	<?php if (isset($_GET["referencia"])) { ?>
+		<a href="../Usuario/busqueda.php" class="btn btn-outline-warning offset-10">Volver</a>
+	<?php } else { ?>
+		<a href="../VistaAdmin/listas.php" class="btn btn-outline-warning offset-10">Volver</a> 
+ <?php } ?>
 </div>
  <div class="container">
  	<br>
@@ -73,7 +77,11 @@ include_once "../FuncionesExtra/funciones.php";
 			<div class="container">
 				<h1>Detalle del Producto Gorro</h1>
 			<br>
-				<a href="../VistaAdmin/listas.php" class="btn btn-outline-warning offset-10">Volver</a>
+				<?php if (isset($_GET["referencia"])) { ?>
+					<a href="../Usuario/busqueda.php" class="btn btn-outline-warning offset-10">Volver</a>
+				<?php } else { ?>
+					<a href="../VistaAdmin/listas.php" class="btn btn-outline-warning offset-10">Volver</a> 
+			 <?php } ?>
 			</div>
 			 <div class="container">
 			 	<br>
@@ -119,7 +127,11 @@ include_once "../FuncionesExtra/funciones.php";
 			<div class="container">
 				<h1>Detalle del Producto Taza</h1>
 			<br>
-				<a href="../VistaAdmin/listas.php" class="btn btn-outline-warning offset-10">Volver</a>
+				<?php if (isset($_GET["referencia"])) { ?>
+					<a href="../Usuario/busqueda.php" class="btn btn-outline-warning offset-10">Volver</a>
+				<?php } else { ?>
+					<a href="../VistaAdmin/listas.php" class="btn btn-outline-warning offset-10">Volver</a> 
+			 <?php } ?>
 			</div>
 			 <div class="container">
 			 	<br>
@@ -167,7 +179,11 @@ include_once "../FuncionesExtra/funciones.php";
 				<div class="container">
 				<h1>Detalle del Producto MUG</h1>
 			<br>
-				<a href="../VistaAdmin/listas.php" class="btn btn-outline-warning offset-10">Volver</a>
+				<?php if (isset($_GET["referencia"])) { ?>
+					<a href="../Usuario/busqueda.php" class="btn btn-outline-warning offset-10">Volver</a>
+				<?php } else { ?>
+					<a href="../VistaAdmin/listas.php" class="btn btn-outline-warning offset-10">Volver</a> 
+			 <?php } ?>
 			</div>
 			 <div class="container">
 			 	<br>
@@ -211,7 +227,11 @@ include_once "../FuncionesExtra/funciones.php";
 					<div class="container">
 				<h1>Detalle del Producto Maus Pad</h1>
 			<br>
-				<a href="../VistaAdmin/listas.php" class="btn btn-outline-warning offset-10">Volver</a>
+				<?php if (isset($_GET["referencia"])) { ?>
+					<a href="../Usuario/busqueda.php" class="btn btn-outline-warning offset-10">Volver</a>
+				<?php } else { ?>
+					<a href="../VistaAdmin/listas.php" class="btn btn-outline-warning offset-10">Volver</a> 
+			 <?php } ?>
 			</div>
 			 <div class="container">
 			 	<br>
@@ -255,7 +275,11 @@ include_once "../FuncionesExtra/funciones.php";
 						<div class="container">
 				<h1>Detalle del Producto Libreta</h1>
 			<br>
-				<a href="../VistaAdmin/listas.php" class="btn btn-outline-warning offset-10">Volver</a>
+				<?php if (isset($_GET["referencia"])) { ?>
+						<a href="../Usuario/busqueda.php" class="btn btn-outline-warning offset-10">Volver</a>
+					<?php } else { ?>
+						<a href="../VistaAdmin/listas.php" class="btn btn-outline-warning offset-10">Volver</a> 
+				 <?php } ?>
 			</div>
 			 <div class="container">
 			 	<br>
@@ -301,7 +325,11 @@ include_once "../FuncionesExtra/funciones.php";
 							<div class="container">
 				<h1>Detalle del Producto Bolsa</h1>
 			<br>
-				<a href="../VistaAdmin/listas.php" class="btn btn-outline-warning offset-10">Volver</a>
+				<?php if (isset($_GET["referencia"])) { ?>
+					<a href="../Usuario/busqueda.php" class="btn btn-outline-warning offset-10">Volver</a>
+				<?php } else { ?>
+					<a href="../VistaAdmin/listas.php" class="btn btn-outline-warning offset-10">Volver</a> 
+			 <?php } ?>
 			</div>
 			 <div class="container">
 			 	<br>
@@ -345,7 +373,11 @@ include_once "../FuncionesExtra/funciones.php";
 								<div class="container">
 				<h1>Detalle del Producto Gadget</h1>
 			<br>
-				<a href="../VistaAdmin/listas.php" class="btn btn-outline-warning offset-10">Volver</a>
+				<?php if (isset($_GET["referencia"])) { ?>
+						<a href="../Usuario/busqueda.php" class="btn btn-outline-warning offset-10">Volver</a>
+					<?php } else { ?>
+						<a href="../VistaAdmin/listas.php" class="btn btn-outline-warning offset-10">Volver</a> 
+				 <?php } ?>
 			</div>
 			 <div class="container">
 			 	<br>
@@ -394,7 +426,11 @@ include_once "../FuncionesExtra/funciones.php";
 			<div class="col">
 				<h1>Producto sin Detalles</h1>
 				<br>
-		<a href="../VistaAdmin/listas.php" class="btn btn-outline-warning offset-10">Volver</a>
+				<?php if (isset($_GET["referencia"])) { ?>
+						<a href="../Usuario/busqueda.php" class="btn btn-outline-warning offset-10">Volver</a>
+					<?php } else { ?>
+						<a href="../VistaAdmin/listas.php" class="btn btn-outline-warning offset-10">Volver</a> 
+				 <?php } ?>
 			</div>
 		</div>
 		<div class="container">

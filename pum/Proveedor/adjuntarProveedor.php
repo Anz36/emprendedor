@@ -19,6 +19,7 @@ $listaPrioridad = listarPrioridad();
 			<div class="form-group">
 				<label for="titulo">Razon</label>
 				<input type="text" name="titulo" placeholder="Razon del PDF" class="form-control" id="razon">
+				<input type="hidden" name="idPersona" value="<?php echo $datoPersona->id; ?>">
 			</div>
 		</div>
 		<div class="col-3">
@@ -62,7 +63,7 @@ $listaPrioridad = listarPrioridad();
 	<div class="col-7">
 		<div class="form-group">
    		 	<label for="archivo">Seleccione el Archivo </label>
-    		<input type="file" class="form-control-file" name="archivo">
+    		<input type="file" class="form-control-file" name="archivo[]" id="archivo[]" multiple>
   	</div>
 	</div>
 </div>

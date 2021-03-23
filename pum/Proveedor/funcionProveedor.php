@@ -25,11 +25,24 @@
 		$sentencia->execute([$ruc]);
     	return $sentencia->fetchObject();
 	}
-	#Registramos el PDF a la DBA.
-	function registrarPdf($razon,$descripcion,$tamaño,$tipo,$nombreArchivo,$idProveedor,$idStatus,$fecha,$visulizaciones){
+	#Capturamos el ID Mensaje.
+	function capturarMensaje($idPersona){
 		$db = obtenerBaseDeDatos();
-		$sentencia = $db->prepare("INSERT INTO documentosProveedor(titulo,descripcion,tamaño,tipo,nombreArchivo,fecha,id_proveedor,id_status,visulizaciones) VALUES (?,?,?,?,?,?,?,?,?)");
-		return $sentencia->execute([$razon,$descripcion,$tamaño,$tipo,$nombreArchivo,$fecha,$idProveedor,$idStatus,$visulizaciones]);
+		$sentencia = $db->prepare("SELECT id FROM mensajes WHERE id_persona = ? ORDER BY fecha DESC LIMIT 1");
+		$sentencia->execute([$idPersona]);
+		return $sentencia->fetchObject()->id;
+	}
+	#Registramos el Mensaje.
+	function registrarMensaje($titulo,$mensaje,$fecha,$idPersona,$idProveedor){
+		$db = obtenerBaseDeDatos();
+		$sentencia = $db->prepare("INSERT INTO mensajes(titulo, descripcion, fecha, id_persona, id_empresa) VALUES (?,?,?,?,?)");
+		return $sentencia->execute([$titulo,$mensaje,$fecha,$idPersona,$idProveedor]);
+	}
+	#Registramos el PDF a la DBA.
+	function registrarPdf($idMensaje,$nombreArchivo,$idProveedor,$idStatus,$fecha,$visulizaciones){
+		$db = obtenerBaseDeDatos();
+		$sentencia = $db->prepare("INSERT INTO documentosProveedor(id_proveedor,id_status,id_mensaje,nombreArchivo,fecha,visulizaciones) VALUES (?,?,?,?,?,?)");
+		return $sentencia->execute([$idProveedor,$idStatus,$idMensaje,$nombreArchivo,$fecha,$visulizaciones]);
 	}
 	#Mostramos en la Lista de Proveedores.
 	function capturarIdProveedor($idProveedor){
@@ -39,9 +52,17 @@
 		return $sentencia->fetchObject()->id_empresa;
 	}
 	#Obtener datos de los Proveedores para monitorear las vistas.
-	function obtenerDatosProveedores(){
+	function obtenerDatosProveedores($idPersona){
 		$db = obtenerBaseDeDatos();
-		$sentencia = $db->query("SELECT * FROM documentosProveedor ORDER BY fecha DESC");
+		$sentencia = $db->prepare("SELECT * FROM mensajes WHERE id_persona = ? ORDER BY fecha DESC");
+		$sentencia->execute([$idPersona]);
+		return $sentencia->fetchAll();
+	}
+	#Obtener los datos status y mas.
+	function obtenerDatosEnvios($idMensaje){
+		$db = obtenerBaseDeDatos();
+		$sentencia = $db->prepare("SELECT * FROM documentosProveedor WHERE id_mensaje = ? ORDER BY fecha DESC");
+		$sentencia->execute([$idMensaje]);
 		return $sentencia->fetchAll();
 	}
 	#Obtener datos de los Proveedores para visualizar el PDF.
@@ -86,9 +107,9 @@
 		$sentencia->execute([$idProveedor,$nobmreArchivo]);
 		return $sentencia->fetchObject();
 	}
-	function contadorDescargas($id,$visulizaciones){
+	function contadorDescargas($nombreArchivo,$visulizaciones){
 		$db = obtenerBaseDeDatos();
-		$sentencia = $db->prepare("UPDATE documentosProveedor SET visulizaciones = ? WHERE id = ?");
-		return $sentencia->execute([$visulizaciones,$id]);
+		$sentencia = $db->prepare("UPDATE documentosProveedor SET visulizaciones = ? WHERE nombreArchivo = ?");
+		return $sentencia->execute([$visulizaciones,$nombreArchivo]);
 	}
  ?>
