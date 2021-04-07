@@ -94,6 +94,8 @@ if ($estadoUsuario->tipoUsuario == "Administrador" || $estadoUsuario->tipoUsuari
             class="icon ion-md-people lead mr-2"></i> Vista del Rincon Emprendedor</a>
             <a href="../Producto/detalleAtencion.php" class="list-group-item list-group-item-action text-muted bg-light p-3 border-0" id="alternar-menu"><i
             class="icon ion-md-trending-up lead mr-2"></i> Atención</a>
+            <a href="../Cliente/listaCliente.php" class="list-group-item list-group-item-action text-muted bg-light p-3 border-0" id="alternar-menu"><i
+            class="icon ion-md-contacts lead mr-2"></i> Cliente</a>
         <a href="../Proveedor/adjuntarProveedor.php" class="list-group-item list-group-item-action text-muted bg-light p-3 border-0"><i
             class="icon ion-md-business lead mr-2"></i> Adjuntar al Proveedor</a>
         <a href="../Usuario/visualizarEnvios.php" class="list-group-item list-group-item-action text-muted bg-light p-3 border-0" id="alternar-menu"><i

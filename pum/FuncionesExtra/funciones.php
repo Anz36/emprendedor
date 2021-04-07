@@ -727,4 +727,37 @@
 		}
 	}
 }
+	function obtenerClientes(){
+		$db = obtenerBaseDeDatosSecundaria();
+		$sentencia = $db->query("SELECT * FROM wp_wc_customer_lookup");
+		return $sentencia->fetchAll();
+	}
+
+	function obtenerEstadoCliente($idCliente){
+		$db = obtenerBaseDeDatosSecundaria();
+		$sentencia = $db->prepare("SELECT count(customer_id) AS Contador FROM wp_wc_order_stats WHERE customer_id = ?");
+		$sentencia->execute([$idCliente]);
+		$estadoCliente = $sentencia->fetchObject()->Contador;
+		if ($estadoCliente >= "5") {
+			return "Cliente Habitual";
+		} elseif ($estadoCliente == "3" || $estadoCliente == "4") {
+			return "Cliente Emprendedor";
+		} else{
+			return "Cliente Nuevo";
+		}
+	}
+
+	function obtenerIdCliente($idCliente){
+		$db = obtenerBaseDeDatosSecundaria();
+		$sentencia = $db->prepare("SELECT count(customer_id) AS Contador,customer_id FROM wp_wc_order_stats WHERE customer_id = ?");
+		$sentencia->execute([$idCliente]);
+		return $sentencia->fetchall();
+	}
+	
+	function obtenerClientePorEstado($idCliente){
+		$db = obtenerBaseDeDatosSecundaria();
+		$sentencia = $db->prepare("SELECT * FROM wp_wc_customer_lookup WHERE customer_id = ?");
+		$sentencia->execute([$idCliente]);
+		return $sentencia->fetchAll();
+	}
  ?>
