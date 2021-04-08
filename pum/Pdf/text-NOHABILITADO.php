@@ -1,38 +1,26 @@
 <?php
 
 include_once "../FuncionesExtra/funciones.php";
-$dato = obtenerClientes();
-foreach ($dato as $datos){
-	$estado = obtenerIdCliente($datos->customer_id);
-	foreach ($estado as $Clientes) {
-		if ($Clientes->Contador >= "5"){
-			$pum = obtenerClientePorEstado($Clientes->customer_id);
-			foreach ($pum as $pumes) {
-				echo "Caso de Habitual"; echo "<br>";
-				echo $pumes->customer_id;echo "<br>";
-				echo $pumes->first_name;
-			}
-		}
-		echo "<br>";
-		if ($Clientes->Contador == "3" ||  $Clientes->Contador == "4"){
-			$pum = obtenerClientePorEstado($Clientes->customer_id);
-			foreach ($pum as $pumes) {
-				echo "Caso Emprendedor"; echo "<br>";
-				echo $pumes->customer_id; echo "<br>";
-				echo $pumes->first_name;
-			}
-		}
-		echo "<br>";
-		if ($Clientes->Contador <= "2"){
-			$pum = obtenerClientePorEstado($Clientes->customer_id);
-			foreach ($pum as $pumes) {
-				 echo "Caso Nuevo"; echo "<br>";
-				echo $pumes->customer_id; echo "<br>";
-				echo $pumes->first_name;
-			}
-		}
-		echo "<br>";
 
-	}
+$listaDetalle = obtenerIDProducto("4");
+foreach ($listaDetalle as $listas) {
+	$idDetalle = $listas->order_id;
+	$nombrePedido = obtenerNombreDelProducto($idDetalle);
+					 			foreach ($nombrePedido as $producto) {
+					 				$skuPedido = obtenerCodigoProducto($producto->order_item_id);
+									foreach ($skuPedido as $codigoPedido) {
+										if ($codigoPedido->variation_id == 0) {
+											$codigoProducto = $codigoPedido->product_id;
+										}else{
+											$codigoProducto = $codigoPedido->variation_id;
+										}
+									$codigoProductoSKU = obtenerCodigoSKU($codigoProducto);
+									$costoPedido = obtenerCostoProducto($codigoProducto);
+									foreach ($codigoProductoSKU as $codigoProductoSku) {
+										
+									}
+								}
+}
+
 }
 ?>

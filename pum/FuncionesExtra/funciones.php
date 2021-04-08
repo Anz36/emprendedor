@@ -760,4 +760,27 @@
 		$sentencia->execute([$idCliente]);
 		return $sentencia->fetchAll();
 	}
+
+	function sumaTotal($idCliente){
+		$db = obtenerBaseDeDatosSecundaria();
+		$sentencia = $db->prepare("SELECT SUM(total_sales) AS Total FROM wp_wc_order_stats WHERE customer_id = ?");
+		$sentencia->execute([$idCliente]);
+		return $sentencia->fetchObject()->Total;
+	}
+
+	#Obtener ID del Producto
+	function obtenerIDProducto($idCliente){
+		$db = obtenerBaseDeDatosSecundaria();
+		$sentencia = $db->query("SELECT * FROM wp_wc_order_stats WHERE customer_id = $idCliente");
+		return $sentencia->fetchAll();
+	}
+
+	#Obtener el Codigo Variacion
+	function capturarProducto($idPedido){
+		$db = obtenerBaseDeDatosSecundaria();
+		$sentencia = $db->prepare("SELECT product_id, variation_id FROM wp_wc_order_product_lookup WHERE order_id = ?");
+		$sentencia->execute([$idPedido]);
+		return $sentencia->fetchAll();
+	}
+
  ?>
